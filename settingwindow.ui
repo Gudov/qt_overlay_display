@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="color">
     <attribute name="title">
@@ -81,7 +81,7 @@
       <number>255</number>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QPushButton" name="color_reset">
      <property name="geometry">
       <rect>
        <x>10</x>

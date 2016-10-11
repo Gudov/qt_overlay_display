@@ -13,6 +13,9 @@ SettingWindow::SettingWindow(QWidget *parent) :
     connect( this->ui->color_g, SIGNAL(valueChanged(int)), this, SLOT(calcNewRGBA()) );
     connect( this->ui->color_b, SIGNAL(valueChanged(int)), this, SLOT(calcNewRGBA()) );
     connect( this->ui->color_a, SIGNAL(valueChanged(int)), this, SLOT(calcNewRGBA()) );
+
+    connect( this->ui->check_cpu_name, SIGNAL(clicked(bool)), this, SIGNAL(changeCPUNameEnabled(bool)) );
+    connect( this->ui->check_cpu_core, SIGNAL(clicked(bool)), this, SIGNAL(changeCPUCoreEnabled(bool)) );
 }
 
 void SettingWindow::calcNewRGBA()
@@ -28,4 +31,9 @@ void SettingWindow::calcNewRGBA()
 SettingWindow::~SettingWindow()
 {
     delete ui;
+}
+
+void SettingWindow::on_color_reset_clicked()
+{
+    emit changeRGBA( 128, 128, 128, 128 );
 }

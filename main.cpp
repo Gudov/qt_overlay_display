@@ -13,6 +13,8 @@ int main(int argc, char *argv[])
 
     QObject::connect( &w, SIGNAL(showSettings()), &setting, SLOT(show()) );
     QObject::connect( &setting, SIGNAL(changeRGBA(int,int,int,int)), &w, SLOT(setNewRGBA(int,int,int,int)) );
+    QObject::connect( &setting, SIGNAL(changeCPUNameEnabled(bool)), &w, SLOT(setCPUNameEnabled(bool)) );
+    QObject::connect( &setting, SIGNAL(changeCPUCoreEnabled(bool)), &w, SLOT(setCPUCoreEnabled(bool)) );
 
     return a.exec();
 }

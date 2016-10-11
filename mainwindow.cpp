@@ -61,12 +61,13 @@ void MainWindow::setNewRGBA( int r, int g, int b, int a )
     rgba.append(")");
 
     this->ui->cpu_max_persent->setStyleSheet("QLabel { color : " + rgba + "; }");
-    this->ui->cpu_name->setStyleSheet("QLabel { color : " + rgba + "; }");
-    this->ui->cpu_core->setStyleSheet("QLabel { color : " + rgba + "; }");
     this->ui->cpu_min_persent->setStyleSheet("QLabel { color : " + rgba + "; }");
     this->ui->memory_max_persent->setStyleSheet("QLabel { color : " + rgba + "; }");
     this->ui->memory_min_persent->setStyleSheet("QLabel { color : " + rgba + "; }");
     this->ui->memory_now->setStyleSheet("QLabel { color : " + rgba + "; }");
+    this->ui->cpu_name->setStyleSheet("QLabel { color : " + rgba + "; }");
+    this->ui->cpu_core->setStyleSheet("QLabel { color : " + rgba + "; }");
+
 }
 
 MainWindow::~MainWindow()
@@ -77,10 +78,26 @@ MainWindow::~MainWindow()
 void MainWindow::updateInfo()
 {
     this->ui->cpu_loger->push( GetCPULoad() * 100 );
-    QString rawCpuName = getCPUName();
-    this->ui->cpu_name->setText( (rawCpuName.split("@"))[0] );
 
-    this->ui->cpu_core->setText( QString("core: ") + QString::number( getCpuCoreCount() ) + "  clock: " + (rawCpuName.split("@"))[1] );
+    if( this->cpu_name_enabled )
+    {
+        QString rawCpuName = getCPUName();
+        this->ui->cpu_name->setText( (rawCpuName.split("@"))[0] );
+
+        if( this->cpu_core_enabled )
+        {
+            this->ui->cpu_core->setText( QString("core: ") + QString::number( getCpuCoreCount() ) + "  clock: " + (rawCpuName.split("@"))[1] );
+        }
+        else
+        {
+            this->ui->cpu_core->setText( "" );
+        }
+    }
+    else
+    {
+        this->ui->cpu_name->setText( "" );
+        this->ui->cpu_core->setText( "" );
+    }
 
     MEMORYSTATUSEX memory_state = getMemoryState();
 
@@ -106,4 +123,14 @@ void MainWindow::updateInfo()
     }
 
 
+}
+
+void MainWindow::setCPUNameEnabled( bool enabled )
+{
+    this->cpu_name_enabled = enabled;
+}
+
+void MainWindow::setCPUCoreEnabled( bool enabled )
+{
+    this->cpu_core_enabled = enabled;
 }

@@ -20,9 +20,14 @@ public:
 
 signals:
     void changeRGBA( int r, int g, int b, int a );
+    void changeCPUNameEnabled(bool);
+    void changeCPUCoreEnabled(bool);
 
 public slots:
     void calcNewRGBA();
+
+private slots:
+    void on_color_reset_clicked();
 
 private:
     MainWindow *parent;
